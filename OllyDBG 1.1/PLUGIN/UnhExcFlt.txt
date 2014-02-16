@@ -1,0 +1,34 @@
+THEORY:
+
+When  exception happens, Win2K/XP gives control to NTDLL!KiUserExceptionFilter,
+which  in turn calls KERNEL32!UnhandledExceptionFilter. This function checks if
+faulty  software  is  being  debugged.  If  not, UnhandledExceptionFilter calls
+softwares' exception handler.
+
+
+
+SOLUTION:
+ 
+Patch  KERNEL32!UnhandledExceptionFilter  so that softwares' exception handler
+is  always  called.  Used  signatures  work  for both Win2K SP4/WinXP SP1, and
+hopefully for all other versions.
+
+
+
+FEATURES:
+
+Plugin  works  under win2k/xp, Olly 1.09/1.10, tested on english versions only.
+I made it for myself, so there might be some bugs/missing features/etc. You are
+welcome to send feedback.
+
+When you need, you should press Plugins-UnhandledExceptionFilter-Patch. It will
+allow  debugged  application to receive all exceptions. You can restore default
+Windows behavior pressing Plugins-UnhandledExceptionFilter-Restore.
+
+When program is restarted in Olly, patch must be applied again!
+
+
+kao
+
+Riga, Latvia, 2004
+kaspars@hotbox.ru
